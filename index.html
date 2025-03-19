@@ -308,19 +308,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.js'></script>
     <script>
-        var selectedDate = null;
-        var selectedTime = null;
-        var selectedService = null;
-        var timeSlotModal = null;
-
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
-            timeSlotModal = new bootstrap.Modal(document.getElementById('timeSlotModal'));
-
-            // Manejar la selección del servicio
-            document.getElementById('serviceType').addEventListener('change', function(e) {
-                selectedService = e.target.value;
-            });
+            var selectedService = '';
+            var selectedDate = '';
+            var selectedTime = '';
 
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
@@ -332,92 +324,79 @@
                 },
                 selectable: true,
                 selectConstraint: {
-                    start: new Date().toISOString().split('T')[0]
-                },
-                validRange: {
-                    start: new Date().toISOString().split('T')[0]
+                    start: new Date(),
                 },
                 dateClick: function(info) {
-                    if (!selectedService) {
-                        alert('Por favor, seleccione un servicio primero');
-                        return;
+                    var clickedDate = new Date(info.date);
+                    var today = new Date();
+                    today.setHours(0, 0, 0, 0);
+
+                    if (clickedDate >= today) {
+                        selectedDate = info.dateStr;
+                        document.getElementById('selectedDate').textContent = formatDate(selectedDate);
+                        var modal = new bootstrap.Modal(document.getElementById('timeSlotModal'));
+                        modal.show();
                     }
-                    selectedDate = info.dateStr;
-                    document.getElementById('timeSlotModalLabel').textContent = 
-                        `Horarios disponibles para el ${info.date.toLocaleDateString('es-ES', {
-                            weekday: 'long',
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                        })}`;
-                    fetchTimeSlots(selectedDate);
-                    timeSlotModal.show();
+                },
+                validRange: function(nowDate) {
+                    return {
+                        start: nowDate
+                    };
                 }
             });
+
             calendar.render();
 
-            document.getElementById('confirmTimeSlot').addEventListener('click', function() {
-                const clientName = document.getElementById('clientName').value.trim();
-                const clientPhone = document.getElementById('clientPhone').value.trim();
-                
-                if (!selectedTime) {
-                    alert('Por favor, seleccione una hora');
-                    return;
-                }
-                
-                if (!clientName || !clientPhone) {
-                    alert('Por favor, complete su nombre y teléfono');
+            // Función para formatear la fecha
+            function formatDate(dateStr) {
+                const date = new Date(dateStr);
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                return date.toLocaleDateString('es-ES', options);
+            }
+
+            // Manejar la selección de horario
+            document.querySelectorAll('.time-slot-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    document.querySelectorAll('.time-slot-btn').forEach(btn => {
+                        btn.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                    selectedTime = this.getAttribute('data-time');
+                });
+            });
+
+            // Manejar la confirmación de la cita
+            window.confirmAppointment = function() {
+                const clientName = document.getElementById('clientName').value;
+                const clientPhone = document.getElementById('clientPhone').value;
+                selectedService = document.querySelector('input[name="service"]:checked').value;
+
+                if (!clientName || !clientPhone || !selectedService || !selectedDate || !selectedTime) {
+                    alert('Por favor complete todos los campos');
                     return;
                 }
 
-                const serviceName = document.getElementById('serviceType').options[document.getElementById('serviceType').selectedIndex].text;
-                const whatsappMessage = `¡Hola! Me gustaría agendar una mantención:\n\n👤 Nombre: ${clientName}\n📱 Teléfono: ${clientPhone}\n🔧 Servicio: ${serviceName}\n📅 Fecha: ${selectedDate}\n⏰ Hora: ${selectedTime}`;
-                window.open(`https://wa.me/+56957209793?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
-                timeSlotModal.hide();
-            });
+                const message = `¡Hola! Me gustaría agendar una hora para ${selectedService}.\n` +
+                              `Fecha: ${formatDate(selectedDate)}\n` +
+                              `Hora: ${selectedTime}\n` +
+                              `Nombre: ${clientName}\n` +
+                              `Teléfono: ${clientPhone}`;
+
+                const whatsappUrl = `https://wa.me/56961816776?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+
+                // Cerrar el modal
+                var modal = bootstrap.Modal.getInstance(document.getElementById('timeSlotModal'));
+                modal.hide();
+
+                // Limpiar los campos
+                document.getElementById('clientName').value = '';
+                document.getElementById('clientPhone').value = '';
+                document.querySelectorAll('.time-slot-btn').forEach(btn => {
+                    btn.classList.remove('selected');
+                });
+            };
         });
-
-        function createTimeButton(time) {
-            const button = document.createElement('button');
-            button.type = 'button';
-            button.className = 'btn btn-outline-light time-slot-btn';
-            button.textContent = time;
-            button.onclick = () => selectTimeSlot(time, button);
-            return button;
-        }
-
-        function selectTimeSlot(time, button) {
-            document.querySelectorAll('.time-slot-btn').forEach(btn => {
-                btn.classList.remove('selected');
-            });
-            button.classList.add('selected');
-            selectedTime = time;
-            document.getElementById('confirmTimeSlot').disabled = false;
-        }
-
-        function fetchTimeSlots(date) {
-            const morningSlots = ['09:00', '10:00', '11:00', '12:00'];
-            const eveningSlots = ['17:00', '18:00', '19:00', '20:00'];
-            
-            const morningContainer = document.getElementById('morningSlots');
-            const eveningContainer = document.getElementById('eveningSlots');
-            morningContainer.innerHTML = '';
-            eveningContainer.innerHTML = '';
-            
-            morningSlots.forEach(time => {
-                const button = createTimeButton(time);
-                morningContainer.appendChild(button);
-            });
-
-            eveningSlots.forEach(time => {
-                const button = createTimeButton(time);
-                eveningContainer.appendChild(button);
-            });
-
-            // Resetear la selección
-            selectedTime = null;
-            document.getElementById('confirmTimeSlot').disabled = true;
-        }
     </script>
 </body>
 </html>
