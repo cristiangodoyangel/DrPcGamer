@@ -127,11 +127,13 @@
         .modal-body {
             padding: 2rem;
             color: var(--secondary-color);
+            background-color: var(--white);
         }
 
         .modal-footer {
             border-top: 1px solid rgba(21, 167, 182, 0.2);
             padding: 1.5rem;
+            background-color: var(--white);
         }
 
         .time-slots-container {
@@ -257,23 +259,21 @@
     <!-- Modal para selección de hora -->
     <div class="modal fade" id="timeSlotModal" tabindex="-1" aria-labelledby="timeSlotModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content bg-dark">
-                <div class="modal-header border-bottom-0">
-                    <h5 class="modal-title text-white" id="timeSlotModalLabel">Seleccione un horario</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="timeSlotModalLabel">Horarios disponibles para <span id="selectedDate"></span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="time-slots-container">
-                        <div class="time-slots-morning">
-                            <h6 class="time-slots-title">Horarios Mañana</h6>
-                            <div id="morningSlots" class="d-flex flex-wrap justify-content-center gap-2">
-                            </div>
+                        <h6 class="time-slots-title">Horarios Mañana</h6>
+                        <div id="morningSlots" class="d-flex flex-wrap justify-content-center gap-2">
                         </div>
+
                         <div class="separator"></div>
-                        <div class="time-slots-evening">
-                            <h6 class="time-slots-title">Horarios Tarde</h6>
-                            <div id="eveningSlots" class="d-flex flex-wrap justify-content-center gap-2">
-                            </div>
+
+                        <h6 class="time-slots-title">Horarios Tarde</h6>
+                        <div id="eveningSlots" class="d-flex flex-wrap justify-content-center gap-2">
                         </div>
                     </div>
                     
@@ -289,7 +289,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer border-top-0">
+                <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                     <button type="button" class="btn btn-primary" id="confirmTimeSlot">Confirmar</button>
                 </div>
