@@ -8,10 +8,10 @@
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.css' rel='stylesheet'>
     <style>
         :root {
-            --primary-color: #00B2B2;
-            --secondary-color: #1B1464;
+            --primary-color: #15a7b6;
+            --secondary-color: #443168;
             --white: #FFFFFF;
-            --gray-light: #E5E5E5;
+            --gray-light: #f5f5f5;
         }
 
         body {
@@ -22,145 +22,66 @@
 
         .navbar {
             background-color: var(--primary-color);
-            padding: 1rem;
+            padding: 1.5rem;
             margin-bottom: 2rem;
+        }
+
+        .navbar img {
+            height: 80px;
         }
 
         .page-title {
             color: var(--secondary-color);
             text-align: center;
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: bold;
             margin: 2rem 0;
+            text-transform: uppercase;
         }
 
         .service-title {
             color: var(--secondary-color);
             text-align: center;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .time-slots-container {
-            background-color: var(--white);
-            border: 2px solid var(--primary-color);
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .time-slots-title {
-            color: var(--secondary-color);
-            margin-bottom: 15px;
-            text-align: center;
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
             font-weight: 600;
-        }
-
-        .separator {
-            border-top: 1px solid var(--primary-color);
-            margin: 20px 0;
-        }
-
-        .time-slot-btn {
-            margin: 5px;
-            min-width: 80px;
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-            transition: all 0.3s ease;
-            background-color: var(--white);
-        }
-
-        .time-slot-btn:hover {
-            background-color: var(--primary-color);
-            color: var(--white);
-        }
-
-        .time-slot-btn.selected {
-            background-color: var(--primary-color);
-            color: var(--white);
-        }
-
-        .modal-content {
-            background-color: var(--white);
-            border: 2px solid var(--primary-color);
-        }
-
-        .modal-header {
-            background-color: var(--primary-color);
-            color: var(--white);
-            border-bottom: none;
-        }
-
-        .modal-title {
-            color: var(--white);
-        }
-
-        .modal-body {
-            color: var(--secondary-color);
-        }
-
-        .modal-footer {
-            border-top: 1px solid var(--primary-color);
-        }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            color: var(--white);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--secondary-color);
-            border-color: var(--secondary-color);
-        }
-
-        .btn-secondary {
-            background-color: var(--gray-light);
-            border-color: var(--gray-light);
-            color: var(--secondary-color);
-        }
-
-        .form-control {
-            border: 1px solid var(--primary-color);
-            color: var(--secondary-color);
-        }
-
-        .form-control:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.25rem rgba(0, 178, 178, 0.25);
-        }
-
-        .form-select {
-            border: 1px solid var(--primary-color);
-            color: var(--secondary-color);
-        }
-
-        .form-select:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.25rem rgba(0, 178, 178, 0.25);
         }
 
         .fc {
             background-color: var(--white);
-            padding: 20px;
-            border-radius: 8px;
+            padding: 25px;
+            border-radius: 12px;
             border: 2px solid var(--primary-color);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .fc-day-past {
             background-color: var(--gray-light) !important;
-            opacity: 0.7;
-            cursor: not-allowed;
         }
 
         .fc-day-today {
-            background-color: rgba(0, 178, 178, 0.1) !important;
+            background-color: rgba(21, 167, 182, 0.1) !important;
+        }
+
+        .fc-daygrid-day-number {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            font-weight: 500;
+            padding: 8px;
+        }
+
+        .fc-col-header-cell-cushion {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 10px;
         }
 
         .fc-button-primary {
             background-color: var(--primary-color) !important;
             border-color: var(--primary-color) !important;
+            font-size: 1rem;
+            padding: 8px 16px;
         }
 
         .fc-button-primary:hover {
@@ -168,12 +89,144 @@
             border-color: var(--secondary-color) !important;
         }
 
-        .fc-daygrid-day-number {
+        .form-select {
+            border: 2px solid var(--primary-color);
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(21, 167, 182, 0.25);
+        }
+
+        /* Estilos del Modal */
+        .modal-content {
+            background-color: var(--white);
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 12px 12px 0 0;
+            padding: 1.5rem;
+        }
+
+        .modal-title {
+            color: var(--white);
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .modal-body {
+            padding: 2rem;
             color: var(--secondary-color);
         }
 
-        .fc-col-header-cell-cushion {
+        .modal-footer {
+            border-top: 1px solid rgba(21, 167, 182, 0.2);
+            padding: 1.5rem;
+        }
+
+        .time-slots-container {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .time-slots-title {
             color: var(--secondary-color);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .time-slot-btn {
+            background-color: var(--white);
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .time-slot-btn:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .time-slot-btn.selected {
+            background-color: var(--primary-color);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(21, 167, 182, 0.3);
+        }
+
+        .separator {
+            border-top: 2px solid rgba(21, 167, 182, 0.2);
+            margin: 2rem 0;
+        }
+
+        .form-control {
+            border: 2px solid var(--primary-color);
+            color: var(--secondary-color);
+            padding: 12px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(21, 167, 182, 0.25);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: var(--white);
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--gray-light);
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .modal .btn-close {
+            color: var(--white);
+            font-size: 1.5rem;
+            opacity: 1;
         }
     </style>
 </head>
