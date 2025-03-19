@@ -374,13 +374,36 @@
                 const clientName = document.getElementById('clientName').value.trim();
                 const clientPhone = document.getElementById('clientPhone').value.trim();
                 const equipmentInfo = document.getElementById('equipmentInfo').value.trim();
-                selectedService = document.querySelector('input[name="service"]:checked')?.value;
+                const selectedServiceElement = document.querySelector('input[name="service"]:checked');
+                selectedService = selectedServiceElement ? selectedServiceElement.value : null;
 
-                if (!clientName || !clientPhone || !equipmentInfo || !selectedService || !selectedDate || !selectedTime) {
-                    alert('Por favor complete todos los campos');
+                // Validaciones individuales con mensajes específicos
+                if (!selectedService) {
+                    alert('Por favor seleccione un servicio');
+                    return;
+                }
+                if (!selectedDate) {
+                    alert('Por favor seleccione una fecha');
+                    return;
+                }
+                if (!selectedTime) {
+                    alert('Por favor seleccione una hora');
+                    return;
+                }
+                if (!clientName) {
+                    alert('Por favor ingrese su nombre');
+                    return;
+                }
+                if (!clientPhone) {
+                    alert('Por favor ingrese su teléfono');
+                    return;
+                }
+                if (!equipmentInfo) {
+                    alert('Por favor ingrese la información del equipo');
                     return;
                 }
 
+                // Si todas las validaciones pasan, crear el mensaje
                 const message = `¡Hola! Me gustaría agendar una hora para ${selectedService}.\n\n` +
                               `📅 Fecha: ${formatDate(selectedDate)}\n` +
                               `⏰ Hora: ${selectedTime}\n` +
