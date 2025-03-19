@@ -374,11 +374,11 @@
                 const clientName = document.getElementById('clientName').value.trim();
                 const clientPhone = document.getElementById('clientPhone').value.trim();
                 const equipmentInfo = document.getElementById('equipmentInfo').value.trim();
-                const selectedServiceElement = document.querySelector('input[name="service"]:checked');
-                selectedService = selectedServiceElement ? selectedServiceElement.value : null;
+                const serviceSelect = document.getElementById('serviceType');
+                selectedService = serviceSelect ? serviceSelect.options[serviceSelect.selectedIndex].text : null;
 
                 // Validaciones individuales con mensajes específicos
-                if (!selectedService) {
+                if (!selectedService || serviceSelect.selectedIndex === 0) {
                     alert('Por favor seleccione un servicio');
                     return;
                 }
@@ -425,6 +425,7 @@
                 document.querySelectorAll('.time-slot-btn').forEach(btn => {
                     btn.classList.remove('selected');
                 });
+                serviceSelect.selectedIndex = 0;
             };
         });
     </script>
