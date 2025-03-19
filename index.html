@@ -295,6 +295,10 @@
                             <label for="clientPhone" class="form-label">Teléfono</label>
                             <input type="tel" class="form-control" id="clientPhone" required>
                         </div>
+                        <div class="mb-3">
+                            <label for="equipmentInfo" class="form-label">Marca y modelo del equipo / información adicional</label>
+                            <textarea class="form-control" id="equipmentInfo" rows="3" required></textarea>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -367,22 +371,24 @@
 
             // Manejar la confirmación de la cita
             window.confirmAppointment = function() {
-                const clientName = document.getElementById('clientName').value;
-                const clientPhone = document.getElementById('clientPhone').value;
-                selectedService = document.querySelector('input[name="service"]:checked').value;
+                const clientName = document.getElementById('clientName').value.trim();
+                const clientPhone = document.getElementById('clientPhone').value.trim();
+                const equipmentInfo = document.getElementById('equipmentInfo').value.trim();
+                selectedService = document.querySelector('input[name="service"]:checked')?.value;
 
-                if (!clientName || !clientPhone || !selectedService || !selectedDate || !selectedTime) {
+                if (!clientName || !clientPhone || !equipmentInfo || !selectedService || !selectedDate || !selectedTime) {
                     alert('Por favor complete todos los campos');
                     return;
                 }
 
-                const message = `¡Hola! Me gustaría agendar una hora para ${selectedService}.\n` +
-                              `Fecha: ${formatDate(selectedDate)}\n` +
-                              `Hora: ${selectedTime}\n` +
-                              `Nombre: ${clientName}\n` +
-                              `Teléfono: ${clientPhone}`;
+                const message = `¡Hola! Me gustaría agendar una hora para ${selectedService}.\n\n` +
+                              `📅 Fecha: ${formatDate(selectedDate)}\n` +
+                              `⏰ Hora: ${selectedTime}\n` +
+                              `👤 Nombre: ${clientName}\n` +
+                              `📱 Teléfono: ${clientPhone}\n` +
+                              `💻 Equipo: ${equipmentInfo}`;
 
-                const whatsappUrl = `https://wa.me/56961816776?text=${encodeURIComponent(message)}`;
+                const whatsappUrl = `https://wa.me/56957209793?text=${encodeURIComponent(message)}`;
                 window.open(whatsappUrl, '_blank');
 
                 // Cerrar el modal
@@ -392,6 +398,7 @@
                 // Limpiar los campos
                 document.getElementById('clientName').value = '';
                 document.getElementById('clientPhone').value = '';
+                document.getElementById('equipmentInfo').value = '';
                 document.querySelectorAll('.time-slot-btn').forEach(btn => {
                     btn.classList.remove('selected');
                 });
