@@ -8,27 +8,42 @@
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.css' rel='stylesheet'>
     <style>
         :root {
-            --primary-color: #2196F3;
-            --secondary-color: #03A9F4;
-            --background-color: #FFFFFF;
-            --text-color: #333333;
-            --card-bg: #F5F5F5;
+            --primary-color: #00B2B2;
+            --secondary-color: #1B1464;
+            --white: #FFFFFF;
+            --gray-light: #E5E5E5;
         }
 
         body {
-            background-color: var(--background-color);
-            color: var(--text-color);
+            background-color: var(--white);
+            color: var(--secondary-color);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         .navbar {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background-color: var(--primary-color);
             padding: 1rem;
             margin-bottom: 2rem;
         }
 
+        .page-title {
+            color: var(--secondary-color);
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 2rem 0;
+        }
+
+        .service-title {
+            color: var(--secondary-color);
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
         .time-slots-container {
-            background-color: var(--card-bg);
+            background-color: var(--white);
+            border: 2px solid var(--primary-color);
             border-radius: 8px;
             padding: 20px;
             margin-bottom: 20px;
@@ -36,14 +51,14 @@
         }
 
         .time-slots-title {
-            color: var(--text-color);
+            color: var(--secondary-color);
             margin-bottom: 15px;
             text-align: center;
             font-weight: 600;
         }
 
         .separator {
-            border-top: 1px solid #ddd;
+            border-top: 1px solid var(--primary-color);
             margin: 20px 0;
         }
 
@@ -53,80 +68,94 @@
             border: 2px solid var(--primary-color);
             color: var(--primary-color);
             transition: all 0.3s ease;
+            background-color: var(--white);
         }
 
         .time-slot-btn:hover {
             background-color: var(--primary-color);
-            color: white;
+            color: var(--white);
         }
 
         .time-slot-btn.selected {
             background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            border: 2px solid var(--primary-color);
+        }
+
+        .modal-header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-bottom: none;
+        }
+
+        .modal-title {
+            color: var(--white);
+        }
+
+        .modal-body {
+            color: var(--secondary-color);
+        }
+
+        .modal-footer {
+            border-top: 1px solid var(--primary-color);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
             border-color: var(--primary-color);
-            color: white;
+            color: var(--white);
         }
 
-        .client-form-container {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
         }
 
-        .client-form-container h6 {
-            color: var(--text-color);
-            margin-bottom: 15px;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        .form-label {
-            color: var(--text-color);
-            font-weight: 500;
+        .btn-secondary {
+            background-color: var(--gray-light);
+            border-color: var(--gray-light);
+            color: var(--secondary-color);
         }
 
         .form-control {
-            background-color: white;
-            border: 1px solid #ddd;
-            color: var(--text-color);
+            border: 1px solid var(--primary-color);
+            color: var(--secondary-color);
         }
 
         .form-control:focus {
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.25rem rgba(33, 150, 243, 0.25);
+            box-shadow: 0 0 0 0.25rem rgba(0, 178, 178, 0.25);
         }
 
-        .modal-content {
-            background-color: white;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        .form-select {
+            border: 1px solid var(--primary-color);
+            color: var(--secondary-color);
         }
 
-        .modal-header {
-            border-bottom: 1px solid #ddd;
-        }
-
-        .modal-footer {
-            border-top: 1px solid #ddd;
+        .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(0, 178, 178, 0.25);
         }
 
         .fc {
-            background-color: white;
+            background-color: var(--white);
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border: 2px solid var(--primary-color);
         }
 
-        .fc-theme-standard td, .fc-theme-standard th {
-            border-color: #ddd;
-        }
-
-        .fc-theme-standard .fc-scrollgrid {
-            border-color: #ddd;
+        .fc-day-past {
+            background-color: var(--gray-light) !important;
+            opacity: 0.7;
+            cursor: not-allowed;
         }
 
         .fc-day-today {
-            background-color: rgba(33, 150, 243, 0.1) !important;
+            background-color: rgba(0, 178, 178, 0.1) !important;
         }
 
         .fc-button-primary {
@@ -140,64 +169,39 @@
         }
 
         .fc-daygrid-day-number {
-            color: var(--text-color);
+            color: var(--secondary-color);
         }
 
         .fc-col-header-cell-cushion {
-            color: var(--text-color);
-        }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--secondary-color);
-            border-color: var(--secondary-color);
-        }
-
-        .form-select {
-            background-color: white;
-            border: 1px solid #ddd;
-            color: var(--text-color);
-        }
-
-        .form-select:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.25rem rgba(33, 150, 243, 0.25);
+            color: var(--secondary-color);
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container-fluid">
+    <nav class="navbar">
+        <div class="container">
             <a class="navbar-brand" href="#">
-                <img src="images/logo.png" alt="Logo" height="40">
-                Dr PC Gamer
+                <img src="images/logo.png" alt="Dr PC Gamer Logo" height="50">
             </a>
         </div>
     </nav>
 
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group mb-4">
-                    <label for="serviceType" class="form-label text-white">Seleccione el servicio</label>
-                    <select class="form-select" id="serviceType" required>
-                        <option value="">Seleccione un servicio</option>
-                        <option value="NOTEBOOK_HOME">Mantención Notebook Gamer a Domicilio - $20000</option>
-                        <option value="NOTEBOOK_WORKSHOP">Mantención Notebook Gamer en Taller - $15000</option>
-                        <option value="DESKTOP_HOME">Mantención Desktop Gamer a Domicilio - $30000</option>
-                        <option value="DESKTOP_WORKSHOP">Mantención Desktop Gamer en Taller - $25000</option>
-                    </select>
-                </div>
-            </div>
-        </div>
+    <div class="container">
+        <h1 class="page-title">RESERVA DE HORA - DR PCGAMER</h1>
+        
+        <h2 class="service-title">Seleccione su servicio</h2>
+        <select class="form-select mb-4" id="serviceType">
+            <option value="">Seleccione un servicio</option>
+            <option value="NOTEBOOK_HOME">Mantención Notebook Gamer a Domicilio - $20000</option>
+            <option value="NOTEBOOK_WORKSHOP">Mantención Notebook Gamer en Taller - $15000</option>
+            <option value="DESKTOP_HOME">Mantención Desktop Gamer a Domicilio - $30000</option>
+            <option value="DESKTOP_WORKSHOP">Mantención Desktop Gamer en Taller - $25000</option>
+        </select>
+
         <div id="calendar"></div>
     </div>
 
-    <!-- Modal de horarios -->
+    <!-- Modal para selección de hora -->
     <div class="modal fade" id="timeSlotModal" tabindex="-1" aria-labelledby="timeSlotModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content bg-dark">
@@ -264,6 +268,13 @@
                     left: 'prev,next today',
                     center: 'title',
                     right: 'dayGridMonth'
+                },
+                selectable: true,
+                selectConstraint: {
+                    start: new Date().toISOString().split('T')[0]
+                },
+                validRange: {
+                    start: new Date().toISOString().split('T')[0]
                 },
                 dateClick: function(info) {
                     if (!selectedService) {
