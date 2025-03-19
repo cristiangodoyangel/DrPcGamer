@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "target/*.jar",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/target/Dr_PCGamer-0.0.1-SNAPSHOT.jar"
+    }
+  ]
+}
