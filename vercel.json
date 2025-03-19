@@ -2,14 +2,17 @@
   "version": 2,
   "builds": [
     {
-      "src": "target/*.jar",
+      "src": "src/**",
       "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/target/Dr_PCGamer-0.0.1-SNAPSHOT.jar"
+      "dest": "/src/main/resources/templates/index.html"
     }
-  ]
+  ],
+  "env": {
+    "SPRING_PROFILES_ACTIVE": "production"
+  }
 }
