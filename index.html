@@ -3,307 +3,269 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr PC Gamer - Reservas de Horas para Mantención</title>
+    <title>Dr PC Gamer - Reservas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.css' rel='stylesheet'>
     <style>
         :root {
             --primary-color: #15a7b6;
             --secondary-color: #443168;
-            --white: #FFFFFF;
-            --gray-light: #f5f5f5;
+            --white: #ffffff;
+            --primary-light: rgba(21, 167, 182, 0.2);
+            --primary-lighter: rgba(21, 167, 182, 0.1);
         }
 
         body {
             background-color: var(--white);
             color: var(--secondary-color);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         .navbar {
             background-color: var(--primary-color);
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .navbar img {
-            height: 80px;
-        }
-
-        .page-title {
-            color: var(--secondary-color);
-            text-align: center;
-            font-size: 2.2rem;
-            font-weight: bold;
-            margin: 2rem 0;
-            text-transform: uppercase;
-        }
-
-        .service-title {
-            color: var(--secondary-color);
-            text-align: center;
-            font-size: 1.6rem;
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-        }
-
-        .fc {
-            background-color: var(--white);
-            padding: 25px;
-            border-radius: 12px;
-            border: 2px solid var(--primary-color);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .fc-day-past {
-            background-color: var(--gray-light) !important;
-        }
-
-        .fc-day-today {
-            background-color: rgba(21, 167, 182, 0.1) !important;
-        }
-
-        .fc-daygrid-day-number {
-            color: var(--secondary-color);
-            font-size: 1.2rem;
-            font-weight: 500;
-            padding: 8px;
-        }
-
-        .fc-col-header-cell-cushion {
-            color: var(--secondary-color);
-            font-size: 1.1rem;
-            font-weight: 600;
-            padding: 10px;
-        }
-
-        .fc-button-primary {
-            background-color: var(--primary-color) !important;
-            border-color: var(--primary-color) !important;
-            font-size: 1rem;
-            padding: 8px 16px;
-        }
-
-        .fc-button-primary:hover {
-            background-color: var(--secondary-color) !important;
-            border-color: var(--secondary-color) !important;
-        }
-
-        .form-select {
-            border: 2px solid var(--primary-color);
-            color: var(--secondary-color);
-            font-size: 1.1rem;
-            padding: 12px;
-            border-radius: 8px;
-        }
-
-        .form-select:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.25rem rgba(21, 167, 182, 0.25);
-        }
-
-        /* Estilos del Modal */
-        .modal-content {
-            background-color: var(--white);
-            border: none;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .modal-header {
-            background-color: var(--primary-color);
-            color: var(--white);
-            border: none;
-            border-radius: 12px 12px 0 0;
-            padding: 1.5rem;
-        }
-
-        .modal-title {
-            color: var(--white);
-            font-size: 1.4rem;
-            font-weight: 600;
-        }
-
-        .modal-body {
-            padding: 2rem;
-            color: var(--secondary-color);
-            background-color: var(--white);
-        }
-
-        .modal-footer {
-            border-top: 1px solid rgba(21, 167, 182, 0.2);
-            padding: 1.5rem;
-            background-color: var(--white);
         }
 
         .time-slots-container {
             background-color: var(--white);
+            border: 1px solid var(--primary-color);
             border-radius: 8px;
             padding: 20px;
+            margin-bottom: 20px;
         }
 
         .time-slots-title {
-            color: var(--secondary-color);
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            text-align: center;
+            color: #666666;
+        }
+
+        .separator {
+            border-top: 1px solid var(--primary-color);
+            margin: 20px 0;
         }
 
         .time-slot-btn {
-            background-color: var(--white);
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-            padding: 10px 20px;
             margin: 5px;
-            border-radius: 6px;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-        }
-
-        .time-slot-btn:hover {
-            background-color: var(--primary-color);
-            color: var(--white);
-            transform: translateY(-2px);
+            min-width: 80px;
+            border: 1px solid #666666 !important;
+            color: #666666 !important;
         }
 
         .time-slot-btn.selected {
             background-color: var(--primary-color);
+            border-color: var(--primary-color);
             color: var(--white);
-            transform: translateY(-2px);
-            box-shadow: 0 2px 4px rgba(21, 167, 182, 0.3);
         }
 
-        .separator {
-            border-top: 2px solid rgba(21, 167, 182, 0.2);
-            margin: 2rem 0;
+        .client-form-container {
+            background-color: var(--white);
+            border: 1px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .client-form-container h6 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .form-label {
+            color: var(--secondary-color);
         }
 
         .form-control {
-            border: 2px solid var(--primary-color);
+            background-color: var(--white);
+            border-color: var(--primary-color);
             color: var(--secondary-color);
-            padding: 12px;
-            font-size: 1.1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
         }
 
         .form-control:focus {
+            background-color: var(--white);
             border-color: var(--primary-color);
+            color: var(--secondary-color);
             box-shadow: 0 0 0 0.25rem rgba(21, 167, 182, 0.25);
         }
 
-        .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            color: var(--white);
-            padding: 12px 24px;
-            font-size: 1.1rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--secondary-color);
-            border-color: var(--secondary-color);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background-color: var(--gray-light);
-            border: 2px solid var(--secondary-color);
+        .modal-content {
+            background-color: var(--white);
             color: var(--secondary-color);
-            padding: 12px 24px;
-            font-size: 1.1rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
         }
 
-        .btn-secondary:hover {
-            background-color: var(--secondary-color);
-            color: var(--white);
-            transform: translateY(-2px);
+        .modal-header {
+            background-color: #15a7b6;
+            color: white;
         }
 
-        .modal .btn-close {
-            color: var(--white);
-            font-size: 1.5rem;
-            opacity: 1;
+        /* Estilos del calendario */
+        .fc {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(21, 167, 182, 0.3);
+        }
+
+        .fc-theme-standard td, .fc-theme-standard th {
+            border: 1px solid var(--primary-color) !important;
+        }
+
+        .fc-col-header-cell {
+            background-color: var(--primary-color) !important;
+            color: var(--white) !important;
+            font-weight: bold !important;
+            text-transform: capitalize !important;
+            padding: 10px 0 !important;
+        }
+
+        .fc-scrollgrid {
+            border: 2px solid var(--primary-color) !important;
+        }
+
+        .fc-daygrid-day {
+            background-color: var(--white);
+            transition: background-color 0.3s ease;
+        }
+
+        .fc-day-today {
+            background-color: var(--primary-light) !important;
+        }
+
+        .fc-day-past {
+            background-color: var(--white) !important;
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .fc-day-future:hover {
+            background-color: var(--primary-lighter) !important;
+            cursor: pointer;
+        }
+
+        .fc-toolbar-title {
+            color: var(--secondary-color) !important;
+            font-weight: bold !important;
+            text-transform: capitalize !important;
+        }
+
+        .fc .fc-button-primary {
+            background-color: var(--primary-color) !important;
+            border-color: var(--primary-color) !important;
+            color: var(--white) !important;
+            font-weight: bold !important;
+            padding: 8px 16px !important;
+            border-radius: 8px !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .fc .fc-button-primary:hover {
+            background-color: var(--primary-light) !important;
+            border-color: var(--primary-color) !important;
+            transform: translateY(-1px) !important;
+        }
+
+        .fc-daygrid-day-number {
+            color: var(--secondary-color) !important;
+            font-weight: 500 !important;
+            padding: 8px !important;
+        }
+
+        .time-slot-btn {
+            border: 1px solid #666666 !important;
+            color: #666666 !important;
+        }
+        
+        .time-slot-btn:hover {
+            background-color: #e6f7f9 !important;
+            border-color: #15a7b6 !important;
+            color: #15a7b6 !important;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="images/logo.png" alt="Dr PC Gamer Logo" height="80">
+                <img src="images/logo.png" alt="Logo" height="40">
+                Dr PC Gamer
             </a>
         </div>
     </nav>
 
-    <div class="container">
-        <h1 class="page-title">RESERVA DE HORA - DR PCGAMER</h1>
-        
-        <h2 class="service-title">Seleccione su servicio</h2>
-        <select class="form-select mb-4" id="serviceType">
-            <option value="">Seleccione un servicio</option>
-            <option value="NOTEBOOK_HOME">Mantención Notebook Gamer a Domicilio - $20000</option>
-            <option value="NOTEBOOK_WORKSHOP">Mantención Notebook Gamer en Taller - $15000</option>
-            <option value="DESKTOP_HOME">Mantención Desktop Gamer a Domicilio - $30000</option>
-            <option value="DESKTOP_WORKSHOP">Mantención Desktop Gamer en Taller - $25000</option>
-        </select>
-
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group mb-4">
+                    <label for="serviceType" class="form-label">Seleccione el servicio</label>
+                    <select class="form-select" id="serviceType" required>
+                        <option value="">Seleccione un servicio</option>
+                        <option value="NOTEBOOK_HOME">Mantención Notebook Gamer a Domicilio - $20000</option>
+                        <option value="NOTEBOOK_WORKSHOP">Mantención Notebook Gamer en Taller - $15000</option>
+                        <option value="DESKTOP_HOME">Mantención Desktop Gamer a Domicilio - $30000</option>
+                        <option value="DESKTOP_WORKSHOP">Mantención Desktop Gamer en Taller - $25000</option>
+                    </select>
+                </div>
+            </div>
+        </div>
         <div id="calendar"></div>
     </div>
 
-    <!-- Modal para selección de hora -->
+    <!-- Modal de alerta -->
+    <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title" id="alertModalLabel">Atención</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p>Por favor, seleccione un servicio primero</p>
+                </div>
+                <div class="modal-footer border-top-0">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de horarios -->
     <div class="modal fade" id="timeSlotModal" tabindex="-1" aria-labelledby="timeSlotModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="timeSlotModalLabel">Horarios disponibles para <span id="selectedDate"></span></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    <h5 class="modal-title" id="timeSlotModalLabel">Seleccione un horario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="time-slots-container">
-                        <h6 class="time-slots-title">Horarios Mañana</h6>
-                        <div class="morning-slots d-flex flex-wrap justify-content-center">
-                            <button class="btn time-slot-btn" data-time="09:00">09:00</button>
-                            <button class="btn time-slot-btn" data-time="10:00">10:00</button>
-                            <button class="btn time-slot-btn" data-time="11:00">11:00</button>
-                            <button class="btn time-slot-btn" data-time="12:00">12:00</button>
+                        <div class="time-slots-morning">
+                            <h6 class="time-slots-title">Horarios Mañana</h6>
+                            <div id="morningSlots" class="d-flex flex-wrap justify-content-center gap-2">
+                            </div>
                         </div>
-
                         <div class="separator"></div>
-
-                        <h6 class="time-slots-title">Horarios Tarde</h6>
-                        <div class="afternoon-slots d-flex flex-wrap justify-content-center">
-                            <button class="btn time-slot-btn" data-time="17:00">17:00</button>
-                            <button class="btn time-slot-btn" data-time="18:00">18:00</button>
-                            <button class="btn time-slot-btn" data-time="19:00">19:00</button>
-                            <button class="btn time-slot-btn" data-time="20:00">20:00</button>
+                        <div class="time-slots-evening">
+                            <h6 class="time-slots-title">Horarios Tarde</h6>
+                            <div id="eveningSlots" class="d-flex flex-wrap justify-content-center gap-2">
+                            </div>
                         </div>
                     </div>
-
-                    <div class="client-info mt-4">
-                        <h6 class="mb-3">Información del Cliente</h6>
-                        <div class="mb-3">
-                            <label for="clientName" class="form-label">Nombre completo</label>
-                            <input type="text" class="form-control" id="clientName" required>
+                    
+                    <div class="client-form-container">
+                        <h6>Información del Cliente</h6>
+                        <div class="form-group">
+                            <label class="form-label" for="clientName">Nombre completo</label>
+                            <input type="text" class="form-control" id="clientName" placeholder="Ingrese su nombre" required>
                         </div>
-                        <div class="mb-3">
-                            <label for="clientPhone" class="form-label">Teléfono</label>
-                            <input type="tel" class="form-control" id="clientPhone" required>
+                        <div class="form-group">
+                            <label class="form-label" for="clientPhone">Teléfono</label>
+                            <input type="tel" class="form-control" id="clientPhone" placeholder="Ingrese su teléfono" required>
                         </div>
-                        <div class="mb-3">
-                            <label for="equipmentInfo" class="form-label">Marca y modelo del equipo / información adicional</label>
-                            <textarea class="form-control" id="equipmentInfo" rows="3" required></textarea>
+                        <div class="form-group">
+                            <label class="form-label" for="clientDetails">Marca/Modelo - Detalles</label>
+                            <input type="text" class="form-control" id="clientDetails" placeholder="Ingrese marca, modelo y detalles" required>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" onclick="confirmAppointment()">Confirmar</button>
+                    <button type="button" class="btn" style="background-color: #15a7b6; color: white;" id="confirmTimeSlot">Confirmar</button>
                 </div>
             </div>
         </div>
@@ -312,122 +274,132 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.js'></script>
     <script>
+        var selectedDate = null;
+        var selectedTime = null;
+        var selectedService = null;
+        var timeSlotModal = null;
+        var alertModal = null;
+        var morningSlotsContainer = null;
+        var eveningSlotsContainer = null;
+        var eveningSection = null;
+        var separator = null;
+
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
-            var selectedService = '';
-            var selectedDate = '';
-            var selectedTime = '';
+            alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
+            timeSlotModal = new bootstrap.Modal(document.getElementById('timeSlotModal'));
+            morningSlotsContainer = document.getElementById('morningSlots');
+            eveningSlotsContainer = document.getElementById('eveningSlots');
+            eveningSection = document.querySelector('.time-slots-evening');
+            separator = document.querySelector('.separator');
+            
+            // Manejar la selección del servicio
+            document.getElementById('serviceType').addEventListener('change', function(e) {
+                selectedService = e.target.value;
+            });
 
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 locale: 'es',
                 headerToolbar: {
-                    left: 'prev,next hoy',
+                    left: 'prev,next today',
                     center: 'title',
-                    right: 'mes'
-                },
-                selectable: true,
-                selectConstraint: {
-                    start: new Date(),
+                    right: 'dayGridMonth'
                 },
                 dateClick: function(info) {
-                    var clickedDate = new Date(info.date);
-                    var today = new Date();
-                    today.setHours(0, 0, 0, 0);
-
-                    if (clickedDate >= today) {
-                        selectedDate = info.dateStr;
-                        document.getElementById('selectedDate').textContent = formatDate(selectedDate);
-                        var modal = new bootstrap.Modal(document.getElementById('timeSlotModal'));
-                        modal.show();
+                    var serviceType = document.getElementById('serviceType').value;
+                    if (!serviceType) {
+                        alertModal.show();
+                        return;
                     }
-                },
-                validRange: function(nowDate) {
-                    return {
-                        start: nowDate
-                    };
+                    
+                    selectedDate = info.dateStr;
+                    document.getElementById('timeSlotModalLabel').textContent = 
+                        `Horarios disponibles para el ${info.date.toLocaleDateString('es-ES', {
+                            weekday: 'long',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        })}`;
+                    fetchTimeSlots(info.date);
+                    timeSlotModal.show();
                 }
             });
 
             calendar.render();
 
-            // Función para formatear la fecha
-            function formatDate(dateStr) {
-                const date = new Date(dateStr);
-                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                return date.toLocaleDateString('es-ES', options);
-            }
-
-            // Manejar la selección de horario
-            document.querySelectorAll('.time-slot-btn').forEach(button => {
-                button.addEventListener('click', function() {
-                    document.querySelectorAll('.time-slot-btn').forEach(btn => {
-                        btn.classList.remove('selected');
-                    });
-                    this.classList.add('selected');
-                    selectedTime = this.getAttribute('data-time');
-                });
-            });
-
-            // Manejar la confirmación de la cita
-            window.confirmAppointment = function() {
+            document.getElementById('confirmTimeSlot').addEventListener('click', function() {
                 const clientName = document.getElementById('clientName').value.trim();
                 const clientPhone = document.getElementById('clientPhone').value.trim();
-                const equipmentInfo = document.getElementById('equipmentInfo').value.trim();
-                const serviceSelect = document.getElementById('serviceType');
-                selectedService = serviceSelect ? serviceSelect.options[serviceSelect.selectedIndex].text : null;
-
-                // Validaciones individuales con mensajes específicos
-                if (!selectedService || serviceSelect.selectedIndex === 0) {
-                    alert('Por favor seleccione un servicio');
-                    return;
-                }
-                if (!selectedDate) {
-                    alert('Por favor seleccione una fecha');
-                    return;
-                }
+                
                 if (!selectedTime) {
-                    alert('Por favor seleccione una hora');
+                    alert('Por favor, seleccione una hora');
                     return;
                 }
-                if (!clientName) {
-                    alert('Por favor ingrese su nombre');
-                    return;
-                }
-                if (!clientPhone) {
-                    alert('Por favor ingrese su teléfono');
-                    return;
-                }
-                if (!equipmentInfo) {
-                    alert('Por favor ingrese la información del equipo');
+                
+                if (!clientName || !clientPhone) {
+                    alert('Por favor, complete su nombre y teléfono');
                     return;
                 }
 
-                // Si todas las validaciones pasan, crear el mensaje
-                const message = `¡Hola! Me gustaría agendar una hora para ${selectedService}.\n\n` +
-                              `📅 Fecha: ${formatDate(selectedDate)}\n` +
-                              `⏰ Hora: ${selectedTime}\n` +
-                              `👤 Nombre: ${clientName}\n` +
-                              `📱 Teléfono: ${clientPhone}\n` +
-                              `💻 Equipo: ${equipmentInfo}`;
-
-                const whatsappUrl = `https://wa.me/56957209793?text=${encodeURIComponent(message)}`;
-                window.open(whatsappUrl, '_blank');
-
-                // Cerrar el modal
-                var modal = bootstrap.Modal.getInstance(document.getElementById('timeSlotModal'));
-                modal.hide();
-
-                // Limpiar los campos
-                document.getElementById('clientName').value = '';
-                document.getElementById('clientPhone').value = '';
-                document.getElementById('equipmentInfo').value = '';
-                document.querySelectorAll('.time-slot-btn').forEach(btn => {
-                    btn.classList.remove('selected');
-                });
-                serviceSelect.selectedIndex = 0;
-            };
+                const serviceName = document.getElementById('serviceType').options[document.getElementById('serviceType').selectedIndex].text;
+                const whatsappMessage = `¡Hola! Me gustaría agendar una mantención:\n\n👤 Nombre: ${clientName}\n📱 Teléfono: ${clientPhone}\n🔧 Servicio: ${serviceName}\n📅 Fecha: ${selectedDate}\n⏰ Hora: ${selectedTime}`;
+                window.open(`https://wa.me/+56957209793?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+                timeSlotModal.hide();
+            });
         });
+
+        function createTimeButton(time) {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'btn btn-outline-light time-slot-btn';
+            button.textContent = time;
+            button.onclick = () => selectTimeSlot(time, button);
+            return button;
+        }
+
+        function selectTimeSlot(time, button) {
+            document.querySelectorAll('.time-slot-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            button.classList.add('selected');
+            selectedTime = time;
+            document.getElementById('confirmTimeSlot').disabled = false;
+        }
+
+        function fetchTimeSlots(date) {
+            const morningSlots = ['09:00', '10:00', '11:00', '12:00'];
+            const eveningSlots = ['17:00', '18:00', '19:00', '20:00'];
+            
+            morningSlotsContainer.innerHTML = '';
+            eveningSlotsContainer.innerHTML = '';
+            
+            // Mostrar todos los contenedores por defecto
+            eveningSection.style.display = 'block';
+            separator.style.display = 'block';
+            
+            // Crear botones para horarios de mañana
+            morningSlots.forEach(time => {
+                morningSlotsContainer.appendChild(createTimeButton(time));
+            });
+
+            // Solo mostrar horarios de tarde si no es sábado
+            const dayOfWeek = new Date(date).getDay();
+            const isSaturday = dayOfWeek === 6;
+            
+            if (!isSaturday) {
+                eveningSlots.forEach(time => {
+                    eveningSlotsContainer.appendChild(createTimeButton(time));
+                });
+            } else {
+                eveningSection.style.display = 'none';
+                separator.style.display = 'none';
+            }
+            
+            // Resetear la selección
+            selectedTime = null;
+            document.getElementById('confirmTimeSlot').disabled = true;
+        }
     </script>
 </body>
 </html>
