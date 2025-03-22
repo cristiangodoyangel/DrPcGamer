@@ -168,13 +168,12 @@
 
         .time-slot-btn {
             border: 1px solid #666666 !important;
-            color: #666666 !important;
+            color: #15a7b6 !important;
+            border-color: #15a7b6 !important;
         }
         
         .time-slot-btn:hover {
             background-color: #e6f7f9 !important;
-            border-color: #15a7b6 !important;
-            color: #15a7b6 !important;
         }
     </style>
 </head>
@@ -206,6 +205,7 @@
         <div id="calendar"></div>
     </div>
 
+
     <!-- Modal de alerta -->
     <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -234,6 +234,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="time-slots-container">
+                        <div class="separator"></div>
                         <div class="time-slots-morning">
                             <h6 class="time-slots-title">Horarios Mañana</h6>
                             <div id="morningSlots" class="d-flex flex-wrap justify-content-center gap-2">
@@ -364,7 +365,6 @@
             });
             button.classList.add('selected');
             selectedTime = time;
-            document.getElementById('confirmTimeSlot').disabled = false;
         }
 
         function fetchTimeSlots(date) {
@@ -398,7 +398,6 @@
             
             // Resetear la selección
             selectedTime = null;
-            document.getElementById('confirmTimeSlot').disabled = true;
         }
     </script>
 </body>
