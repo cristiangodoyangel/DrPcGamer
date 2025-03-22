@@ -13,15 +13,36 @@
             --white: #ffffff;
             --primary-light: rgba(21, 167, 182, 0.2);
             --primary-lighter: rgba(21, 167, 182, 0.1);
+            --disabled-gray: #cccccc;
         }
 
         body {
             background-color: var(--white);
             color: var(--secondary-color);
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .navbar {
-            background-color: var(--primary-color);
+            background-color: var(--primary-color) !important;
+            margin-bottom: 20px;
+            padding: 15px 0;
+        }
+
+        .navbar-brand {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .navbar-brand img {
+            height: 200px;
+            width: auto;
+        }
+
+        .navbar-text {
+            display: none;
         }
 
         .time-slots-container {
@@ -166,6 +187,11 @@
             padding: 8px !important;
         }
 
+        .fc-col-header-cell-cushion {
+            color: var(--white) !important;
+            text-decoration: none !important;
+        }
+
         .time-slot-btn {
             border: 1px solid #666666 !important;
             color: #666666 !important;
@@ -176,34 +202,148 @@
             border-color: #15a7b6 !important;
             color: #15a7b6 !important;
         }
+
+        .main-title {
+            color: var(--secondary-color);
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            font-weight: bold;
+            word-wrap: break-word;
+        }
+
+        #serviceType {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 20px;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid var(--disabled-gray);
+        }
+
+        .form-select-container {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto 20px;
+            padding: 0 15px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        #calendar {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .main-title {
+                font-size: 1.8em !important;
+                padding: 0 10px;
+            }
+
+            .container {
+                padding: 0 5px;
+            }
+
+            .fc-header-toolbar {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .fc-toolbar-chunk {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+            }
+
+            .modal-dialog {
+                margin: 10px;
+            }
+
+            .time-slot-btn {
+                margin: 5px !important;
+                min-width: calc(50% - 10px) !important;
+            }
+
+            .navbar-brand img {
+                height: 80px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 1.5em !important;
+            }
+
+            .time-slot-btn {
+                min-width: calc(100% - 10px) !important;
+            }
+
+            .navbar-brand img {
+                height: 60px;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background-color: var(--secondary-color);
+            color: var(--white);
+        }
+
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            color: var(--white);
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="images/logo.png" alt="Logo" height="40">
-                Dr PC Gamer
+                <img src="/images/logo.png" alt="Dr PC Gamer Logo">
             </a>
         </div>
     </nav>
+    <h1 class="main-title">Reserva de Horas - Dr PC Gamer</h1>
 
     <div class="container mt-5">
         <div class="row">
-            <div class="col-md-4">
-                <div class="form-group mb-4">
-                    <label for="serviceType" class="form-label">Seleccione el servicio</label>
+            <div class="col-12">
+                <div class="form-select-container">
                     <select class="form-select" id="serviceType" required>
                         <option value="">Seleccione un servicio</option>
-                        <option value="NOTEBOOK_HOME">Mantención Notebook Gamer a Domicilio - $20000</option>
-                        <option value="NOTEBOOK_WORKSHOP">Mantención Notebook Gamer en Taller - $15000</option>
-                        <option value="DESKTOP_HOME">Mantención Desktop Gamer a Domicilio - $30000</option>
-                        <option value="DESKTOP_WORKSHOP">Mantención Desktop Gamer en Taller - $25000</option>
+                        <option value="NOTEBOOK_HOME">Mantención Notebook Gamer (Domicilio) - $20.000</option>
+                        <option value="NOTEBOOK_WORKSHOP">Mantención Notebook Gamer (Taller) - $15.000</option>
+                        <option value="DESKTOP_HOME">Mantención Desktop Gamer (Domicilio) - $30.000</option>
+                        <option value="DESKTOP_WORKSHOP">Mantención Desktop Gamer (Taller) - $25.000</option>
+                        <option value="BUILD_HOME">Armado Completo PC Gamer (Domicilio) - $35.000</option>
+                        <option value="BUILD_WORKSHOP">Armado Completo PC Gamer (Taller) - $30.000</option>
+                        <option value="FORMAT_HOME">Formateo e Instalación Windows (Domicilio) - $20.000</option>
+                        <option value="FORMAT_WORKSHOP">Formateo e Instalación Windows (Taller) - $15.000</option>
                     </select>
                 </div>
+                <div id="calendar"></div>
             </div>
         </div>
-        <div id="calendar"></div>
     </div>
 
     <!-- Modal de alerta -->
@@ -301,6 +441,13 @@
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 locale: 'es',
+                buttonText: {
+                    today: 'Hoy',
+                    month: 'Mes',
+                    week: 'Semana',
+                    day: 'Día',
+                    list: 'Lista'
+                },
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',
@@ -401,5 +548,8 @@
             document.getElementById('confirmTimeSlot').disabled = true;
         }
     </script>
+    <div class="footer">
+        <p>Desarrollado por <a href="https://weblogica.cl">Weblogica</a></p>
+    </div>
 </body>
 </html>
