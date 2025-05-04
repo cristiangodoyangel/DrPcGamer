@@ -173,6 +173,11 @@
             padding: 8px 16px !important;
             border-radius: 8px !important;
             transition: all 0.3s ease !important;
+            margin-right: 16px !important;
+        }
+
+        .fc .fc-button-primary:last-child {
+            margin-right: 0 !important;
         }
 
         .fc .fc-button-primary:hover {
@@ -339,6 +344,10 @@
                         <option value="BUILD_WORKSHOP">Armado Completo PC Gamer (Taller) - $30.000</option>
                         <option value="FORMAT_HOME">Formateo e Instalación Windows (Domicilio) - $20.000</option>
                         <option value="FORMAT_WORKSHOP">Formateo e Instalación Windows (Taller) - $15.000</option>
+                        <option value="REVISION_HOME">Revisión y diagnóstico (Domicilio) - $ 10.000</option>
+                        <option value="REVISION_WORKSHOP">Revisión y diagnóstico (Taller) - $ 5.000</option>
+                        <option value="BIOS_HOME">Actualización Bios (Domicilio) - $ 25.000</option>
+                        <option value="BIOS_WORKSHOP">Actualización Bios (Taller) - $ 20.000</option>
                     </select>
                 </div>
                 <div id="calendar"></div>
@@ -453,7 +462,25 @@
                     center: 'title',
                     right: 'dayGridMonth'
                 },
+                selectable: true,
+                selectAllow: function(selectInfo) {
+                    // Bloquear selección de domingos
+                    var startDate = selectInfo.start;
+                    if (startDate.getDay() === 0) {
+                        return false;
+                    }
+                    return true;
+                },
+                validRange: function(nowDate) {
+                    return {
+                        start: nowDate
+                    };
+                },
                 dateClick: function(info) {
+                    // Bloquear domingos al hacer click
+                    if (info.date.getDay() === 0) {
+                        return;
+                    }
                     var serviceType = document.getElementById('serviceType').value;
                     if (!serviceType) {
                         alertModal.show();
