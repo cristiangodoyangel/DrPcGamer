@@ -8,7 +8,12 @@ public enum ServiceType {
     BUILD_HOME("Armado Completo PC Gamer a Domicilio", 35000),
     BUILD_WORKSHOP("Armado Completo PC Gamer en Taller", 30000),
     FORMAT_HOME("Formateo e Instalación Windows a Domicilio", 20000),
-    FORMAT_WORKSHOP("Formateo e Instalación Windows en Taller", 15000);
+    FORMAT_WORKSHOP("Formateo e Instalación Windows en Taller", 15000),
+    REVISION_HOME("Revisión y diagnóstico (Domicilio)", 10000),
+    REVISION_WORKSHOP("Revisión y diagnóstico (Taller)", 5000),
+    BIOS_HOME("Actualización Bios (Domicilio)", 25000),
+    BIOS_WORKSHOP("Actualización Bios (Taller)", 20000);
+
 
     private final String description;
     private final int price;
